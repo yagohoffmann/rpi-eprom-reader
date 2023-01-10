@@ -3,3 +3,6 @@ output/*
 
 # but keep the folder
 !output/.gitkeep
+
+# ignore vscode
+.vscode
