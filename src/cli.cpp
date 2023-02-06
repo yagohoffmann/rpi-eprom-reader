@@ -1,19 +1,25 @@
 #include "cli.hpp"
+#include "hal_gpio.hpp"
 
 #include <iostream>
+#include <unistd.h>
 
 /**************************************************************************************************/
 RpiCli::RpiCli(std::string fw_version){
-    std::cout << "********************************************" << std::endl;
-    std::cout << "*        Welcome to rpi eprom reader       *" << std::endl;
-    std::cout << "*        Version: " << fw_version << "           *" << std::endl;
-    std::cout << "********************************************" << std::endl;
+
+    // Prints welcome banner with firmware version
+    std::cout << "********************************************"                << std::endl;
+    std::cout << "*        Welcome to rpi eprom reader       *"                << std::endl;
+    std::cout << "*        Version: " << fw_version << "                    *" << std::endl;
+    std::cout << "********************************************"                << std::endl;
 }
 
 /**************************************************************************************************/
 int RpiCli::StartCli(){
     std::string input = "";
-    int rv = 0;
+    int rv = EXIT_SUCCESS;
+
+    HalGpio gpio;
 
     while (input != "exit")
     {
@@ -34,6 +40,14 @@ int RpiCli::StartCli(){
             case SHOW_CHIP:
                 std::cout << "Selected chip is 24C256" << std::endl;
                 break;
+            case TURN_OFF:
+                std::cout << "Turning pin 14 off" << std::endl;
+                gpio.SetValue(1,0);
+                break;
+            case TURN_ON:
+                std::cout << "Turning pin 14 on" << std::endl;
+                gpio.SetValue(1,1);
+                break;
             case EXIT:
                 std::cout << "Exiting application..." << std::endl;
             default:
@@ -42,7 +56,6 @@ int RpiCli::StartCli(){
         } else{
             std::cout << "Command not found!" << std::endl;
         }
-
     }
 
     return rv;
