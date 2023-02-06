@@ -11,4 +11,5 @@ target_sources(rpi-eprom-reader PRIVATE src/cli.cpp src/hal_gpio.cpp)
 target_include_directories(rpi-eprom-reader PRIVATE
                            ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/src)
 
-target_link_libraries(rpi-eprom-reader /home/yago.araujo/home-projects/libs/libgpiod.so)
+# Export CROSS_C_LIBS var with the path to your cross compiled libs
+target_link_libraries(rpi-eprom-reader $ENV{CROSS_C_LIBS}/libgpiod.so)
