@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.4)
+cmake_minimum_required(VERSION 2.8.12)
 
 project(rpi-eprom-reader)
 
@@ -11,5 +11,4 @@ target_sources(rpi-eprom-reader PRIVATE src/cli.cpp src/hal_gpio.cpp)
 target_include_directories(rpi-eprom-reader PRIVATE
                            ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/src)
 
-# Export CROSS_C_LIBS var with the path to your cross compiled libs
-target_link_libraries(rpi-eprom-reader $ENV{CROSS_C_LIBS}/libgpiod.so)
+target_link_libraries(rpi-eprom-reader libgpiod.so)
